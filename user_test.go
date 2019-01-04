@@ -76,8 +76,8 @@ func TestUserCreate(t *testing.T) {
 }
 
 type TestUser struct {
-	Firstname string `json:"firstname"`
-	Lastname  string `json:"lastname"`
+	Firstname string `json:"first_name"`
+	Lastname  string `json:"last_name"`
 }
 
 func errorHandler(logger *log.Logger) func(context.Context, http.ResponseWriter, error) {
