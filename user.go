@@ -23,10 +23,10 @@ func (s *usersrvc) Create(ctx context.Context, p *user.UserPayload) (res *user.U
 	res = &user.User{}
 	s.logger.Print("user.create")
 	res = &user.User{
-		Firstname: p.Firstname,
+		FirstName: p.FirstName,
 	}
-	if p.Lastname != nil {
-		res.Lastname = *p.Lastname
+	if p.LastName != nil {
+		res.LastName = *p.LastName
 	}
 	return
 }
