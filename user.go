@@ -22,5 +22,11 @@ func NewUser(logger *log.Logger) user.Service {
 func (s *usersrvc) Create(ctx context.Context, p *user.UserPayload) (res *user.User, err error) {
 	res = &user.User{}
 	s.logger.Print("user.create")
+	res = &user.User{
+		Firstname: p.Firstname,
+	}
+	if p.Lastname != nil {
+		res.Lastname = *p.Lastname
+	}
 	return
 }
