@@ -31,8 +31,8 @@ func UsageCommands() string {
 // UsageExamples produces an example of a valid invocation of the CLI tool.
 func UsageExamples() string {
 	return os.Args[0] + ` user create --body '{
-      "firstname": "Illo inventore.",
-      "lastname": "Placeat modi quod facere vero omnis."
+      "first_name": "Illo inventore.",
+      "last_name": "Placeat modi quod facere vero omnis."
    }'` + "\n" +
 		""
 }
@@ -151,8 +151,8 @@ Create implements create.
 
 Example:
     `+os.Args[0]+` user create --body '{
-      "firstname": "Illo inventore.",
-      "lastname": "Placeat modi quod facere vero omnis."
+      "first_name": "Illo inventore.",
+      "last_name": "Placeat modi quod facere vero omnis."
    }'
 `, os.Args[0])
 }

@@ -20,23 +20,23 @@ import (
 func BuildCreatePayload(userCreateBody string) (*user.UserPayload, error) {
 	var err error
 	var body struct {
-		Firstname *string
-		Lastname  *string
+		FirstName *string
+		LastName  *string
 	}
 	{
 		err = json.Unmarshal([]byte(userCreateBody), &body)
 		if err != nil {
-			return nil, fmt.Errorf("invalid JSON for body, example of valid JSON:\n%s", "'{\n      \"firstname\": \"Illo inventore.\",\n      \"lastname\": \"Placeat modi quod facere vero omnis.\"\n   }'")
+			return nil, fmt.Errorf("invalid JSON for body, example of valid JSON:\n%s", "'{\n      \"first_name\": \"Illo inventore.\",\n      \"last_name\": \"Placeat modi quod facere vero omnis.\"\n   }'")
 		}
 	}
 	if err != nil {
 		return nil, err
 	}
 	v := &user.UserPayload{
-		Lastname: body.Lastname,
+		LastName: body.LastName,
 	}
-	if body.Firstname != nil {
-		v.Firstname = *body.Firstname
+	if body.FirstName != nil {
+		v.FirstName = *body.FirstName
 	}
 	return v, nil
 }

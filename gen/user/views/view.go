@@ -22,8 +22,8 @@ type User struct {
 
 // UserView is a type that runs validations on a projected type.
 type UserView struct {
-	Firstname *string
-	Lastname  *string
+	FirstName *string
+	LastName  *string
 }
 
 // ValidateUser runs the validations defined on the viewed result type User.
@@ -40,11 +40,11 @@ func ValidateUser(result *User) (err error) {
 // ValidateUserView runs the validations defined on UserView using the
 // "default" view.
 func ValidateUserView(result *UserView) (err error) {
-	if result.Firstname == nil {
-		err = goa.MergeErrors(err, goa.MissingFieldError("firstname", "result"))
+	if result.FirstName == nil {
+		err = goa.MergeErrors(err, goa.MissingFieldError("first_name", "result"))
 	}
-	if result.Lastname == nil {
-		err = goa.MergeErrors(err, goa.MissingFieldError("lastname", "result"))
+	if result.LastName == nil {
+		err = goa.MergeErrors(err, goa.MissingFieldError("last_name", "result"))
 	}
 	return
 }

@@ -32,14 +32,14 @@ var MethodNames = [1]string{"create"}
 
 // UserPayload is the payload type of the user service create method.
 type UserPayload struct {
-	Firstname string
-	Lastname  *string
+	FirstName string
+	LastName  *string
 }
 
 // User is the result type of the user service create method.
 type User struct {
-	Firstname string
-	Lastname  string
+	FirstName string
+	LastName  string
 }
 
 // NewUser initializes result type User from viewed result type User.
@@ -67,11 +67,11 @@ func NewViewedUser(res *User, view string) *userviews.User {
 // newUser converts projected type User to service type User.
 func newUser(vres *userviews.UserView) *User {
 	res := &User{}
-	if vres.Firstname != nil {
-		res.Firstname = *vres.Firstname
+	if vres.FirstName != nil {
+		res.FirstName = *vres.FirstName
 	}
-	if vres.Lastname != nil {
-		res.Lastname = *vres.Lastname
+	if vres.LastName != nil {
+		res.LastName = *vres.LastName
 	}
 	return res
 }
@@ -80,8 +80,8 @@ func newUser(vres *userviews.UserView) *User {
 // "default" view.
 func newUserView(res *User) *userviews.UserView {
 	vres := &userviews.UserView{
-		Firstname: &res.Firstname,
-		Lastname:  &res.Lastname,
+		FirstName: &res.FirstName,
+		LastName:  &res.LastName,
 	}
 	return vres
 }

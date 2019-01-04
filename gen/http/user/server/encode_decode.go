@@ -36,8 +36,8 @@ func DecodeCreateRequest(mux goahttp.Muxer, decoder func(*http.Request) goahttp.
 	return func(r *http.Request) (interface{}, error) {
 		var (
 			body struct {
-				Firstname *string
-				Lastname  *string
+				FirstName *string
+				LastName  *string
 			}
 			err error
 		)
@@ -48,8 +48,8 @@ func DecodeCreateRequest(mux goahttp.Muxer, decoder func(*http.Request) goahttp.
 			}
 			return nil, goa.DecodePayloadError(err.Error())
 		}
-		if body.Firstname == nil {
-			err = goa.MergeErrors(err, goa.MissingFieldError("firstname", "body"))
+		if body.FirstName == nil {
+			err = goa.MergeErrors(err, goa.MissingFieldError("first_name", "body"))
 		}
 		if err != nil {
 			return nil, err

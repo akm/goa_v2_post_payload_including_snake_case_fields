@@ -25,14 +25,14 @@ paths:
         schema:
           type: object
           properties:
-            firstname:
+            first_name:
               type: string
               example: Impedit atque aliquid quo magnam.
-            lastname:
+            last_name:
               type: string
               example: Porro cum est aut et.
           required:
-          - firstname
+          - first_name
       responses:
         "201":
           description: Created response.
@@ -45,16 +45,16 @@ definitions:
     title: 'Mediatype identifier: application/vnd.user+json; view=default'
     type: object
     properties:
-      firstname:
+      first_name:
         type: string
         example: Distinctio eaque reprehenderit voluptatem ad et beatae.
-      lastname:
+      last_name:
         type: string
         example: Et voluptatem.
     description: CreateResponseBody result type (default view)
     example:
-      firstname: Possimus sed.
-      lastname: Eos impedit ipsam.
+      first_name: Possimus sed.
+      last_name: Eos impedit ipsam.
     required:
-    - firstname
-    - lastname
+    - first_name
+    - last_name

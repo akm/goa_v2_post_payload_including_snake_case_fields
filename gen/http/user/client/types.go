@@ -15,16 +15,16 @@ import (
 // CreateResponseBody is the type of the "user" service "create" endpoint HTTP
 // response body.
 type CreateResponseBody struct {
-	Firstname *string `form:"firstname,omitempty" json:"firstname,omitempty" xml:"firstname,omitempty"`
-	Lastname  *string `form:"lastname,omitempty" json:"lastname,omitempty" xml:"lastname,omitempty"`
+	FirstName *string `form:"first_name,omitempty" json:"first_name,omitempty" xml:"first_name,omitempty"`
+	LastName  *string `form:"last_name,omitempty" json:"last_name,omitempty" xml:"last_name,omitempty"`
 }
 
 // NewCreateUserCreated builds a "user" service "create" endpoint result from a
 // HTTP "Created" response.
 func NewCreateUserCreated(body *CreateResponseBody) *userviews.UserView {
 	v := &userviews.UserView{
-		Firstname: body.Firstname,
-		Lastname:  body.Lastname,
+		FirstName: body.FirstName,
+		LastName:  body.LastName,
 	}
 	return v
 }
