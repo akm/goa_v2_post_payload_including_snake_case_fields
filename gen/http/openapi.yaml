@@ -1,0 +1,60 @@
+swagger: "2.0"
+info:
+  title: An example of snake case fields
+  version: ""
+host: localhost:8000
+consumes:
+- application/json
+- application/xml
+- application/gob
+produces:
+- application/json
+- application/xml
+- application/gob
+paths:
+  /users:
+    post:
+      tags:
+      - user
+      summary: create user
+      operationId: user#create
+      parameters:
+      - name: object
+        in: body
+        required: true
+        schema:
+          type: object
+          properties:
+            firstname:
+              type: string
+              example: Impedit atque aliquid quo magnam.
+            lastname:
+              type: string
+              example: Porro cum est aut et.
+          required:
+          - firstname
+      responses:
+        "201":
+          description: Created response.
+          schema:
+            $ref: '#/definitions/UserCreateResponseBody'
+      schemes:
+      - http
+definitions:
+  UserCreateResponseBody:
+    title: 'Mediatype identifier: application/vnd.user+json; view=default'
+    type: object
+    properties:
+      firstname:
+        type: string
+        example: Distinctio eaque reprehenderit voluptatem ad et beatae.
+      lastname:
+        type: string
+        example: Et voluptatem.
+    description: CreateResponseBody result type (default view)
+    example:
+      firstname: Possimus sed.
+      lastname: Eos impedit ipsam.
+    required:
+    - firstname
+    - lastname
