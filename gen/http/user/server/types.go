@@ -30,11 +30,13 @@ func NewCreateResponseBody(res *userviews.UserView) *CreateResponseBody {
 	return body
 }
 
+type NewCreateUserPayloadBody struct {
+	FirstName *string `json:"first_name"`
+	LastName  *string `json:"last_name"`
+}
+
 // NewCreateUserPayload builds a user service create endpoint payload.
-func NewCreateUserPayload(body struct {
-	FirstName *string
-	LastName  *string
-}) *user.UserPayload {
+func NewCreateUserPayload(body NewCreateUserPayloadBody) *user.UserPayload {
 	v := &user.UserPayload{
 		LastName: body.LastName,
 	}
