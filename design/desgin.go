@@ -18,13 +18,13 @@ var _ = API("snake_case_fields", func() {
 	})
 })
 
-var fieldNames = []string{"firstname", "lastname"}
+var fieldNames = []string{"first_name", "last_name"}
 
 var UserPayload = Type("UserPayload", func() {
 	for _, f := range fieldNames {
 		Attribute(f, String)
 	}
-	Required("firstname")
+	Required("first_name")
 })
 
 var User = ResultType("application/vnd.user+json", func() {
