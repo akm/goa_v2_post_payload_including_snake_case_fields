@@ -9,14 +9,32 @@
 package client
 
 import (
+	user "github.com/akm/goa_v2_post_payload_including_snake_case_fields/gen/user"
 	userviews "github.com/akm/goa_v2_post_payload_including_snake_case_fields/gen/user/views"
 )
+
+// UserPayload is the type of the "user" service "create" endpoint HTTP request
+// body.
+type UserPayload struct {
+	FirstName string  `form:"first_name" json:"first_name" xml:"first_name"`
+	LastName  *string `form:"last_name,omitempty" json:"last_name,omitempty" xml:"last_name,omitempty"`
+}
 
 // CreateResponseBody is the type of the "user" service "create" endpoint HTTP
 // response body.
 type CreateResponseBody struct {
 	FirstName *string `form:"first_name,omitempty" json:"first_name,omitempty" xml:"first_name,omitempty"`
 	LastName  *string `form:"last_name,omitempty" json:"last_name,omitempty" xml:"last_name,omitempty"`
+}
+
+// NewUserPayload builds the HTTP request body from the payload of the "create"
+// endpoint of the "user" service.
+func NewUserPayload(p *user.UserPayload) *UserPayload {
+	body := &UserPayload{
+		FirstName: p.FirstName,
+		LastName:  p.LastName,
+	}
+	return body
 }
 
 // NewCreateUserCreated builds a "user" service "create" endpoint result from a

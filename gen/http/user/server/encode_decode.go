@@ -35,11 +35,8 @@ func EncodeCreateResponse(encoder func(context.Context, http.ResponseWriter) goa
 func DecodeCreateRequest(mux goahttp.Muxer, decoder func(*http.Request) goahttp.Decoder) func(*http.Request) (interface{}, error) {
 	return func(r *http.Request) (interface{}, error) {
 		var (
-			body struct {
-				FirstName *string
-				LastName  *string
-			}
-			err error
+			body UserPayload
+			err  error
 		)
 		err = decoder(r).Decode(&body)
 		if err != nil {
@@ -48,13 +45,11 @@ func DecodeCreateRequest(mux goahttp.Muxer, decoder func(*http.Request) goahttp.
 			}
 			return nil, goa.DecodePayloadError(err.Error())
 		}
-		if body.FirstName == nil {
-			err = goa.MergeErrors(err, goa.MissingFieldError("first_name", "body"))
-		}
+		err = ValidateUserPayload(&body)
 		if err != nil {
 			return nil, err
 		}
-		payload := NewCreateUserPayload(body)
+		payload := NewCreateUserPayload(&body)
 
 		return payload, nil
 	}
