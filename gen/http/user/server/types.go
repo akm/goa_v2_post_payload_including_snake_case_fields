@@ -11,7 +11,15 @@ package server
 import (
 	user "github.com/akm/goa_v2_post_payload_including_snake_case_fields/gen/user"
 	userviews "github.com/akm/goa_v2_post_payload_including_snake_case_fields/gen/user/views"
+	goa "goa.design/goa"
 )
+
+// UserPayload is the type of the "user" service "create" endpoint HTTP request
+// body.
+type UserPayload struct {
+	FirstName *string `form:"first_name,omitempty" json:"first_name,omitempty" xml:"first_name,omitempty"`
+	LastName  *string `form:"last_name,omitempty" json:"last_name,omitempty" xml:"last_name,omitempty"`
+}
 
 // CreateResponseBody is the type of the "user" service "create" endpoint HTTP
 // response body.
@@ -31,15 +39,18 @@ func NewCreateResponseBody(res *userviews.UserView) *CreateResponseBody {
 }
 
 // NewCreateUserPayload builds a user service create endpoint payload.
-func NewCreateUserPayload(body struct {
-	FirstName *string
-	LastName  *string
-}) *user.UserPayload {
+func NewCreateUserPayload(body *UserPayload) *user.UserPayload {
 	v := &user.UserPayload{
-		LastName: body.LastName,
-	}
-	if body.FirstName != nil {
-		v.FirstName = *body.FirstName
+		FirstName: *body.FirstName,
+		LastName:  body.LastName,
 	}
 	return v
+}
+
+// ValidateUserPayload runs the validations defined on UserPayload
+func ValidateUserPayload(body *UserPayload) (err error) {
+	if body.FirstName == nil {
+		err = goa.MergeErrors(err, goa.MissingFieldError("first_name", "body"))
+	}
+	return
 }

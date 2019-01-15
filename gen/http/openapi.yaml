@@ -19,20 +19,11 @@ paths:
       summary: create user
       operationId: user#create
       parameters:
-      - name: object
+      - name: UserPayload
         in: body
         required: true
         schema:
-          type: object
-          properties:
-            first_name:
-              type: string
-              example: Impedit atque aliquid quo magnam.
-            last_name:
-              type: string
-              example: Porro cum est aut et.
-          required:
-          - first_name
+          $ref: '#/definitions/UserUserPayload'
       responses:
         "201":
           description: Created response.
@@ -47,14 +38,29 @@ definitions:
     properties:
       first_name:
         type: string
-        example: Distinctio eaque reprehenderit voluptatem ad et beatae.
+        example: Cupiditate dolores temporibus modi ut et.
       last_name:
         type: string
-        example: Et voluptatem.
+        example: Beatae quisquam mollitia ipsam et quo.
     description: CreateResponseBody result type (default view)
     example:
-      first_name: Possimus sed.
-      last_name: Eos impedit ipsam.
+      first_name: Illo inventore.
+      last_name: Placeat modi quod facere vero omnis.
     required:
     - first_name
     - last_name
+  UserUserPayload:
+    title: UserUserPayload
+    type: object
+    properties:
+      first_name:
+        type: string
+        example: Inventore molestiae.
+      last_name:
+        type: string
+        example: Alias et illo aspernatur tempora id.
+    example:
+      first_name: Ipsam qui nesciunt voluptates maiores.
+      last_name: Et harum quod dolor.
+    required:
+    - first_name
