@@ -21,13 +21,6 @@ type UserPayload struct {
 	LastName  *string `form:"last_name,omitempty" json:"last_name,omitempty" xml:"last_name,omitempty"`
 }
 
-// UserPayload is the type of the "user" service "update" endpoint HTTP request
-// body.
-type UserPayload struct {
-	FirstName *string `form:"first_name,omitempty" json:"first_name,omitempty" xml:"first_name,omitempty"`
-	LastName  *string `form:"last_name,omitempty" json:"last_name,omitempty" xml:"last_name,omitempty"`
-}
-
 // CreateResponseBody is the type of the "user" service "create" endpoint HTTP
 // response body.
 type CreateResponseBody struct {
@@ -86,14 +79,6 @@ func NewUpdatePayload(body *UserPayload, id int) *user.UpdatePayload {
 	}
 	res.ID = id
 	return res
-}
-
-// ValidateUserPayload runs the validations defined on UserPayload
-func ValidateUserPayload(body *UserPayload) (err error) {
-	if body.FirstName == nil {
-		err = goa.MergeErrors(err, goa.MissingFieldError("first_name", "body"))
-	}
-	return
 }
 
 // ValidateUserPayload runs the validations defined on UserPayload
