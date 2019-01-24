@@ -30,3 +30,15 @@ func (s *usersrvc) Create(ctx context.Context, p *user.UserPayload) (res *user.U
 	}
 	return
 }
+
+// Update implements update.
+func (s *usersrvc) Update(ctx context.Context, p *user.UpdatePayload) (res *user.User, err error) {
+	s.logger.Print("user.update")
+	res = &user.User{
+		FirstName: p.User.FirstName,
+	}
+	if p.User.LastName != nil {
+		res.LastName = *p.User.LastName
+	}
+	return
+}
