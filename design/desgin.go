@@ -29,12 +29,14 @@ var UserPayload = Type("UserPayload", func() {
 
 var User = ResultType("application/vnd.user+json", func() {
 	Attributes(func() {
+		Attribute("id")
 		for _, f := range fieldNames {
 			Attribute(f, String)
 		}
 		Required(fieldNames...)
 	})
 	View("default", func() {
+		Attribute("id")
 		for _, f := range fieldNames {
 			Attribute(f)
 		}
@@ -53,6 +55,20 @@ var _ = Service("user", func() {
 			POST("")
 			Body(UserPayload)
 			Response(StatusCreated)
+		})
+	})
+
+	Method("update", func() {
+		Payload(func() {
+			Attribute("id", Int)
+			Attribute("user", UserPayload)
+			Required("id", "user")
+		})
+		Result(User)
+		HTTP(func() {
+			PUT("/{id}")
+			Body("user")
+			Response(StatusOK)
 		})
 	})
 })
