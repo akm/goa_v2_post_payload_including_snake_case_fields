@@ -31,6 +31,29 @@ paths:
             $ref: '#/definitions/UserCreateResponseBody'
       schemes:
       - http
+  /users/{id}:
+    put:
+      tags:
+      - user
+      summary: update user
+      operationId: user#update
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+      - name: UserPayload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/UserUserPayload'
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/UserUpdateResponseBody'
+      schemes:
+      - http
 definitions:
   UserCreateResponseBody:
     title: 'Mediatype identifier: application/vnd.user+json; view=default'
@@ -38,14 +61,39 @@ definitions:
     properties:
       first_name:
         type: string
-        example: Cupiditate dolores temporibus modi ut et.
+        example: Alias et illo aspernatur tempora id.
+      id:
+        type: string
+        example: Inventore molestiae.
       last_name:
         type: string
-        example: Beatae quisquam mollitia ipsam et quo.
+        example: Ipsam qui nesciunt voluptates maiores.
     description: CreateResponseBody result type (default view)
     example:
-      first_name: Illo inventore.
-      last_name: Placeat modi quod facere vero omnis.
+      first_name: Distinctio eaque reprehenderit voluptatem ad et beatae.
+      id: Et harum quod dolor.
+      last_name: Et voluptatem.
+    required:
+    - first_name
+    - last_name
+  UserUpdateResponseBody:
+    title: 'Mediatype identifier: application/vnd.user+json; view=default'
+    type: object
+    properties:
+      first_name:
+        type: string
+        example: Voluptatem delectus qui qui.
+      id:
+        type: string
+        example: Odio suscipit earum quae.
+      last_name:
+        type: string
+        example: Beatae provident.
+    description: UpdateResponseBody result type (default view)
+    example:
+      first_name: Ut exercitationem necessitatibus nisi quod doloribus et.
+      id: Officia animi architecto et officiis dolorem.
+      last_name: Consequatur neque amet aut nihil aliquam.
     required:
     - first_name
     - last_name
@@ -55,12 +103,12 @@ definitions:
     properties:
       first_name:
         type: string
-        example: Inventore molestiae.
+        example: Possimus sed.
       last_name:
         type: string
-        example: Alias et illo aspernatur tempora id.
+        example: Eos impedit ipsam.
     example:
-      first_name: Ipsam qui nesciunt voluptates maiores.
-      last_name: Et harum quod dolor.
+      first_name: Impedit atque aliquid quo magnam.
+      last_name: Porro cum est aut et.
     required:
     - first_name

@@ -22,6 +22,7 @@ type User struct {
 
 // UserView is a type that runs validations on a projected type.
 type UserView struct {
+	ID        *string
 	FirstName *string
 	LastName  *string
 }

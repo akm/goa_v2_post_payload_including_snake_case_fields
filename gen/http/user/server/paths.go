@@ -8,7 +8,16 @@
 
 package server
 
+import (
+	"fmt"
+)
+
 // CreateUserPath returns the URL path to the user service create HTTP endpoint.
 func CreateUserPath() string {
 	return "/users"
+}
+
+// UpdateUserPath returns the URL path to the user service update HTTP endpoint.
+func UpdateUserPath(id int) string {
+	return fmt.Sprintf("/users/%v", id)
 }

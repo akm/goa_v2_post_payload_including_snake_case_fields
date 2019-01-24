@@ -18,6 +18,8 @@ import (
 type Service interface {
 	// Create implements create.
 	Create(context.Context, *UserPayload) (res *User, err error)
+	// Update implements update.
+	Update(context.Context, *UpdatePayload) (res *User, err error)
 }
 
 // ServiceName is the name of the service as defined in the design. This is the
@@ -28,7 +30,7 @@ const ServiceName = "user"
 // MethodNames lists the service method names as defined in the design. These
 // are the same values that are set in the endpoint request contexts under the
 // MethodKey key.
-var MethodNames = [1]string{"create"}
+var MethodNames = [2]string{"create", "update"}
 
 // UserPayload is the payload type of the user service create method.
 type UserPayload struct {
@@ -38,8 +40,15 @@ type UserPayload struct {
 
 // User is the result type of the user service create method.
 type User struct {
+	ID        *string
 	FirstName string
 	LastName  string
+}
+
+// UpdatePayload is the payload type of the user service update method.
+type UpdatePayload struct {
+	ID   int
+	User *UserPayload
 }
 
 // NewUser initializes result type User from viewed result type User.
@@ -66,7 +75,9 @@ func NewViewedUser(res *User, view string) *userviews.User {
 
 // newUser converts projected type User to service type User.
 func newUser(vres *userviews.UserView) *User {
-	res := &User{}
+	res := &User{
+		ID: vres.ID,
+	}
 	if vres.FirstName != nil {
 		res.FirstName = *vres.FirstName
 	}
@@ -80,6 +91,7 @@ func newUser(vres *userviews.UserView) *User {
 // "default" view.
 func newUserView(res *User) *userviews.UserView {
 	vres := &userviews.UserView{
+		ID:        res.ID,
 		FirstName: &res.FirstName,
 		LastName:  &res.LastName,
 	}

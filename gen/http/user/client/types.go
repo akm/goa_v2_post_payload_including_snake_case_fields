@@ -20,9 +20,25 @@ type UserPayload struct {
 	LastName  *string `form:"last_name,omitempty" json:"last_name,omitempty" xml:"last_name,omitempty"`
 }
 
+// UserPayload is the type of the "user" service "update" endpoint HTTP request
+// body.
+type UserPayload struct {
+	FirstName string  `form:"first_name" json:"first_name" xml:"first_name"`
+	LastName  *string `form:"last_name,omitempty" json:"last_name,omitempty" xml:"last_name,omitempty"`
+}
+
 // CreateResponseBody is the type of the "user" service "create" endpoint HTTP
 // response body.
 type CreateResponseBody struct {
+	ID        *string `form:"id,omitempty" json:"id,omitempty" xml:"id,omitempty"`
+	FirstName *string `form:"first_name,omitempty" json:"first_name,omitempty" xml:"first_name,omitempty"`
+	LastName  *string `form:"last_name,omitempty" json:"last_name,omitempty" xml:"last_name,omitempty"`
+}
+
+// UpdateResponseBody is the type of the "user" service "update" endpoint HTTP
+// response body.
+type UpdateResponseBody struct {
+	ID        *string `form:"id,omitempty" json:"id,omitempty" xml:"id,omitempty"`
 	FirstName *string `form:"first_name,omitempty" json:"first_name,omitempty" xml:"first_name,omitempty"`
 	LastName  *string `form:"last_name,omitempty" json:"last_name,omitempty" xml:"last_name,omitempty"`
 }
@@ -37,10 +53,32 @@ func NewUserPayload(p *user.UserPayload) *UserPayload {
 	return body
 }
 
+// NewUserPayload builds the HTTP request body from the payload of the "update"
+// endpoint of the "user" service.
+func NewUserPayload(p *user.UpdatePayload) *UserPayload {
+	body := &UserPayload{
+		FirstName: p.User.FirstName,
+		LastName:  p.User.LastName,
+	}
+	return body
+}
+
 // NewCreateUserCreated builds a "user" service "create" endpoint result from a
 // HTTP "Created" response.
 func NewCreateUserCreated(body *CreateResponseBody) *userviews.UserView {
 	v := &userviews.UserView{
+		ID:        body.ID,
+		FirstName: body.FirstName,
+		LastName:  body.LastName,
+	}
+	return v
+}
+
+// NewUpdateUserOK builds a "user" service "update" endpoint result from a HTTP
+// "OK" response.
+func NewUpdateUserOK(body *UpdateResponseBody) *userviews.UserView {
+	v := &userviews.UserView{
+		ID:        body.ID,
 		FirstName: body.FirstName,
 		LastName:  body.LastName,
 	}

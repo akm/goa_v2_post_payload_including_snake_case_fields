@@ -17,18 +17,21 @@ import (
 // Endpoints wraps the "user" service endpoints.
 type Endpoints struct {
 	Create goa.Endpoint
+	Update goa.Endpoint
 }
 
 // NewEndpoints wraps the methods of the "user" service with endpoints.
 func NewEndpoints(s Service) *Endpoints {
 	return &Endpoints{
 		Create: NewCreateEndpoint(s),
+		Update: NewUpdateEndpoint(s),
 	}
 }
 
 // Use applies the given middleware to all the "user" service endpoints.
 func (e *Endpoints) Use(m func(goa.Endpoint) goa.Endpoint) {
 	e.Create = m(e.Create)
+	e.Update = m(e.Update)
 }
 
 // NewCreateEndpoint returns an endpoint function that calls the method
@@ -37,6 +40,20 @@ func NewCreateEndpoint(s Service) goa.Endpoint {
 	return func(ctx context.Context, req interface{}) (interface{}, error) {
 		p := req.(*UserPayload)
 		res, err := s.Create(ctx, p)
+		if err != nil {
+			return nil, err
+		}
+		vres := NewViewedUser(res, "default")
+		return vres, nil
+	}
+}
+
+// NewUpdateEndpoint returns an endpoint function that calls the method
+// "update" of service "user".
+func NewUpdateEndpoint(s Service) goa.Endpoint {
+	return func(ctx context.Context, req interface{}) (interface{}, error) {
+		p := req.(*UpdatePayload)
+		res, err := s.Update(ctx, p)
 		if err != nil {
 			return nil, err
 		}

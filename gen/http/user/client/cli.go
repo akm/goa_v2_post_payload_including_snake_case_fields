@@ -11,6 +11,7 @@ package client
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
 
 	user "github.com/akm/goa_v2_post_payload_including_snake_case_fields/gen/user"
 )
@@ -34,4 +35,38 @@ func BuildCreatePayload(userCreateBody string) (*user.UserPayload, error) {
 		LastName:  body.LastName,
 	}
 	return v, nil
+}
+
+// BuildUpdatePayload builds the payload for the user update endpoint from CLI
+// flags.
+func BuildUpdatePayload(userUpdateBody string, userUpdateID string) (*user.UpdatePayload, error) {
+	var err error
+	var body UserPayload
+	{
+		err = json.Unmarshal([]byte(userUpdateBody), &body)
+		if err != nil {
+			return nil, fmt.Errorf("invalid JSON for body, example of valid JSON:\n%s", "'{\n      \"first_name\": \"Error nisi dolores cum beatae ut eum.\",\n      \"last_name\": \"Ipsa similique architecto aut.\"\n   }'")
+		}
+	}
+	var id int
+	{
+		var v int64
+		v, err = strconv.ParseInt(userUpdateID, 10, 64)
+		id = int(v)
+		if err != nil {
+			err = fmt.Errorf("invalid value for id, must be INT")
+		}
+	}
+	if err != nil {
+		return nil, err
+	}
+	v := &user.UserPayload{
+		FirstName: body.FirstName,
+		LastName:  body.LastName,
+	}
+	res := &user.UpdatePayload{
+		User: v,
+	}
+	res.ID = id
+	return res, nil
 }

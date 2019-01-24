@@ -24,7 +24,7 @@ import (
 //    command (subcommand1|subcommand2|...)
 //
 func UsageCommands() string {
-	return `user create
+	return `user (create|update)
 `
 }
 
@@ -51,9 +51,14 @@ func ParseEndpoint(
 
 		userCreateFlags    = flag.NewFlagSet("create", flag.ExitOnError)
 		userCreateBodyFlag = userCreateFlags.String("body", "REQUIRED", "")
+
+		userUpdateFlags    = flag.NewFlagSet("update", flag.ExitOnError)
+		userUpdateBodyFlag = userUpdateFlags.String("body", "REQUIRED", "")
+		userUpdateIDFlag   = userUpdateFlags.String("id", "REQUIRED", "")
 	)
 	userFlags.Usage = userUsage
 	userCreateFlags.Usage = userCreateUsage
+	userUpdateFlags.Usage = userUpdateUsage
 
 	if err := flag.CommandLine.Parse(os.Args[1:]); err != nil {
 		return nil, nil, err
@@ -92,6 +97,9 @@ func ParseEndpoint(
 			case "create":
 				epf = userCreateFlags
 
+			case "update":
+				epf = userUpdateFlags
+
 			}
 
 		}
@@ -120,6 +128,9 @@ func ParseEndpoint(
 			case "create":
 				endpoint = c.Create()
 				data, err = userc.BuildCreatePayload(*userCreateBodyFlag)
+			case "update":
+				endpoint = c.Update()
+				data, err = userc.BuildUpdatePayload(*userUpdateBodyFlag, *userUpdateIDFlag)
 			}
 		}
 	}
@@ -138,6 +149,7 @@ Usage:
 
 COMMAND:
     create: Create implements create.
+    update: Update implements update.
 
 Additional help:
     %s user COMMAND --help
@@ -154,5 +166,20 @@ Example:
       "first_name": "Error nisi dolores cum beatae ut eum.",
       "last_name": "Ipsa similique architecto aut."
    }'
+`, os.Args[0])
+}
+
+func userUpdateUsage() {
+	fmt.Fprintf(os.Stderr, `%s [flags] user update -body JSON -id INT
+
+Update implements update.
+    -body JSON: 
+    -id INT: 
+
+Example:
+    `+os.Args[0]+` user update --body '{
+      "first_name": "Error nisi dolores cum beatae ut eum.",
+      "last_name": "Ipsa similique architecto aut."
+   }' --id 435444108187706381
 `, os.Args[0])
 }

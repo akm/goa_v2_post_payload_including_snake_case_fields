@@ -21,17 +21,45 @@ type UserPayload struct {
 	LastName  *string `form:"last_name,omitempty" json:"last_name,omitempty" xml:"last_name,omitempty"`
 }
 
+// UserPayload is the type of the "user" service "update" endpoint HTTP request
+// body.
+type UserPayload struct {
+	FirstName *string `form:"first_name,omitempty" json:"first_name,omitempty" xml:"first_name,omitempty"`
+	LastName  *string `form:"last_name,omitempty" json:"last_name,omitempty" xml:"last_name,omitempty"`
+}
+
 // CreateResponseBody is the type of the "user" service "create" endpoint HTTP
 // response body.
 type CreateResponseBody struct {
-	FirstName string `form:"first_name" json:"first_name" xml:"first_name"`
-	LastName  string `form:"last_name" json:"last_name" xml:"last_name"`
+	ID        *string `form:"id,omitempty" json:"id,omitempty" xml:"id,omitempty"`
+	FirstName string  `form:"first_name" json:"first_name" xml:"first_name"`
+	LastName  string  `form:"last_name" json:"last_name" xml:"last_name"`
+}
+
+// UpdateResponseBody is the type of the "user" service "update" endpoint HTTP
+// response body.
+type UpdateResponseBody struct {
+	ID        *string `form:"id,omitempty" json:"id,omitempty" xml:"id,omitempty"`
+	FirstName string  `form:"first_name" json:"first_name" xml:"first_name"`
+	LastName  string  `form:"last_name" json:"last_name" xml:"last_name"`
 }
 
 // NewCreateResponseBody builds the HTTP response body from the result of the
 // "create" endpoint of the "user" service.
 func NewCreateResponseBody(res *userviews.UserView) *CreateResponseBody {
 	body := &CreateResponseBody{
+		ID:        res.ID,
+		FirstName: *res.FirstName,
+		LastName:  *res.LastName,
+	}
+	return body
+}
+
+// NewUpdateResponseBody builds the HTTP response body from the result of the
+// "update" endpoint of the "user" service.
+func NewUpdateResponseBody(res *userviews.UserView) *UpdateResponseBody {
+	body := &UpdateResponseBody{
+		ID:        res.ID,
 		FirstName: *res.FirstName,
 		LastName:  *res.LastName,
 	}
@@ -45,6 +73,27 @@ func NewCreateUserPayload(body *UserPayload) *user.UserPayload {
 		LastName:  body.LastName,
 	}
 	return v
+}
+
+// NewUpdatePayload builds a user service update endpoint payload.
+func NewUpdatePayload(body *UserPayload, id int) *user.UpdatePayload {
+	v := &user.UserPayload{
+		FirstName: *body.FirstName,
+		LastName:  body.LastName,
+	}
+	res := &user.UpdatePayload{
+		User: v,
+	}
+	res.ID = id
+	return res
+}
+
+// ValidateUserPayload runs the validations defined on UserPayload
+func ValidateUserPayload(body *UserPayload) (err error) {
+	if body.FirstName == nil {
+		err = goa.MergeErrors(err, goa.MissingFieldError("first_name", "body"))
+	}
+	return
 }
 
 // ValidateUserPayload runs the validations defined on UserPayload
