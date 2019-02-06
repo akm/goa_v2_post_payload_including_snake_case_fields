@@ -19,11 +19,11 @@ paths:
       summary: create user
       operationId: user#create
       parameters:
-      - name: UserPayload
+      - name: CreateRequestBody
         in: body
         required: true
         schema:
-          $ref: '#/definitions/UserUserPayload'
+          $ref: '#/definitions/UserCreateRequestBody'
       responses:
         "201":
           description: Created response.
@@ -42,11 +42,11 @@ paths:
         in: path
         required: true
         type: integer
-      - name: UserPayload
+      - name: UpdateRequestBody
         in: body
         required: true
         schema:
-          $ref: '#/definitions/UserUserPayload'
+          $ref: '#/definitions/UserUpdateRequestBody'
       responses:
         "200":
           description: OK response.
@@ -55,60 +55,75 @@ paths:
       schemes:
       - http
 definitions:
+  UserCreateRequestBody:
+    title: UserCreateRequestBody
+    type: object
+    properties:
+      first_name:
+        type: string
+        example: Odio suscipit earum quae.
+      last_name:
+        type: string
+        example: Voluptatem delectus qui qui.
+    example:
+      first_name: Beatae provident.
+      last_name: Officia animi architecto et officiis dolorem.
+    required:
+    - first_name
   UserCreateResponseBody:
     title: 'Mediatype identifier: application/vnd.user+json; view=default'
     type: object
     properties:
       first_name:
         type: string
-        example: Alias et illo aspernatur tempora id.
+        example: Sit et voluptatem.
       id:
         type: string
-        example: Inventore molestiae.
+        example: Voluptatem ad et.
       last_name:
         type: string
-        example: Ipsam qui nesciunt voluptates maiores.
+        example: Possimus sed.
     description: CreateResponseBody result type (default view)
     example:
-      first_name: Distinctio eaque reprehenderit voluptatem ad et beatae.
-      id: Et harum quod dolor.
-      last_name: Et voluptatem.
+      first_name: Impedit atque aliquid quo magnam.
+      id: Eos impedit ipsam.
+      last_name: Porro cum est aut et.
     required:
     - first_name
     - last_name
+  UserUpdateRequestBody:
+    title: UserUpdateRequestBody
+    type: object
+    properties:
+      first_name:
+        type: string
+        example: Tempora eius sed eius laborum eos.
+      last_name:
+        type: string
+        example: Repudiandae ipsa dignissimos at minima quo soluta.
+    example:
+      first_name: Deserunt suscipit nobis fugit similique id.
+      last_name: Officiis qui sit libero dolores ab.
+    required:
+    - first_name
   UserUpdateResponseBody:
     title: 'Mediatype identifier: application/vnd.user+json; view=default'
     type: object
     properties:
       first_name:
         type: string
-        example: Voluptatem delectus qui qui.
+        example: Consequatur neque amet aut nihil aliquam.
       id:
         type: string
-        example: Odio suscipit earum quae.
+        example: Ut exercitationem necessitatibus nisi quod doloribus et.
       last_name:
         type: string
-        example: Beatae provident.
+        example: Voluptas at quo aspernatur.
     description: UpdateResponseBody result type (default view)
     example:
-      first_name: Ut exercitationem necessitatibus nisi quod doloribus et.
-      id: Officia animi architecto et officiis dolorem.
-      last_name: Consequatur neque amet aut nihil aliquam.
+      first_name: Qui voluptate quasi distinctio.
+      id: Eum distinctio minima.
+      last_name: Nihil tempore neque eaque libero accusamus aut.
     required:
     - first_name
     - last_name
-  UserUserPayload:
-    title: UserUserPayload
-    type: object
-    properties:
-      first_name:
-        type: string
-        example: Possimus sed.
-      last_name:
-        type: string
-        example: Eos impedit ipsam.
-    example:
-      first_name: Impedit atque aliquid quo magnam.
-      last_name: Porro cum est aut et.
-    required:
-    - first_name

@@ -31,8 +31,8 @@ func UsageCommands() string {
 // UsageExamples produces an example of a valid invocation of the CLI tool.
 func UsageExamples() string {
 	return os.Args[0] + ` user create --body '{
-      "first_name": "Error nisi dolores cum beatae ut eum.",
-      "last_name": "Ipsa similique architecto aut."
+      "first_name": "Nihil magni vel dolores quia quo.",
+      "last_name": "Sit officiis maiores."
    }'` + "\n" +
 		""
 }
@@ -163,8 +163,8 @@ Create implements create.
 
 Example:
     `+os.Args[0]+` user create --body '{
-      "first_name": "Error nisi dolores cum beatae ut eum.",
-      "last_name": "Ipsa similique architecto aut."
+      "first_name": "Nihil magni vel dolores quia quo.",
+      "last_name": "Sit officiis maiores."
    }'
 `, os.Args[0])
 }
@@ -178,8 +178,8 @@ Update implements update.
 
 Example:
     `+os.Args[0]+` user update --body '{
-      "first_name": "Error nisi dolores cum beatae ut eum.",
-      "last_name": "Ipsa similique architecto aut."
-   }' --id 435444108187706381
+      "first_name": "Modi quod.",
+      "last_name": "Vero omnis commodi inventore molestiae voluptas."
+   }' --id 2294843666486776210
 `, os.Args[0])
 }

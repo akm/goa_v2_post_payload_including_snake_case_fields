@@ -13,16 +13,16 @@ import (
 	userviews "github.com/akm/goa_v2_post_payload_including_snake_case_fields/gen/user/views"
 )
 
-// UserPayload is the type of the "user" service "create" endpoint HTTP request
-// body.
-type UserPayload struct {
+// CreateRequestBody is the type of the "user" service "create" endpoint HTTP
+// request body.
+type CreateRequestBody struct {
 	FirstName string  `form:"first_name" json:"first_name" xml:"first_name"`
 	LastName  *string `form:"last_name,omitempty" json:"last_name,omitempty" xml:"last_name,omitempty"`
 }
 
-// UserPayload is the type of the "user" service "update" endpoint HTTP request
-// body.
-type UserPayload struct {
+// UpdateRequestBody is the type of the "user" service "update" endpoint HTTP
+// request body.
+type UpdateRequestBody struct {
 	FirstName string  `form:"first_name" json:"first_name" xml:"first_name"`
 	LastName  *string `form:"last_name,omitempty" json:"last_name,omitempty" xml:"last_name,omitempty"`
 }
@@ -43,20 +43,20 @@ type UpdateResponseBody struct {
 	LastName  *string `form:"last_name,omitempty" json:"last_name,omitempty" xml:"last_name,omitempty"`
 }
 
-// NewUserPayload builds the HTTP request body from the payload of the "create"
-// endpoint of the "user" service.
-func NewUserPayload(p *user.UserPayload) *UserPayload {
-	body := &UserPayload{
+// NewCreateRequestBody builds the HTTP request body from the payload of the
+// "create" endpoint of the "user" service.
+func NewCreateRequestBody(p *user.UserPayload) *CreateRequestBody {
+	body := &CreateRequestBody{
 		FirstName: p.FirstName,
 		LastName:  p.LastName,
 	}
 	return body
 }
 
-// NewUserPayload builds the HTTP request body from the payload of the "update"
-// endpoint of the "user" service.
-func NewUserPayload(p *user.UpdatePayload) *UserPayload {
-	body := &UserPayload{
+// NewUpdateRequestBody builds the HTTP request body from the payload of the
+// "update" endpoint of the "user" service.
+func NewUpdateRequestBody(p *user.UpdatePayload) *UpdateRequestBody {
+	body := &UpdateRequestBody{
 		FirstName: p.User.FirstName,
 		LastName:  p.User.LastName,
 	}

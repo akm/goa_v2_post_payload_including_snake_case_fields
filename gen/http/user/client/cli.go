@@ -20,11 +20,11 @@ import (
 // flags.
 func BuildCreatePayload(userCreateBody string) (*user.UserPayload, error) {
 	var err error
-	var body UserPayload
+	var body CreateRequestBody
 	{
 		err = json.Unmarshal([]byte(userCreateBody), &body)
 		if err != nil {
-			return nil, fmt.Errorf("invalid JSON for body, example of valid JSON:\n%s", "'{\n      \"first_name\": \"Error nisi dolores cum beatae ut eum.\",\n      \"last_name\": \"Ipsa similique architecto aut.\"\n   }'")
+			return nil, fmt.Errorf("invalid JSON for body, example of valid JSON:\n%s", "'{\n      \"first_name\": \"Nihil magni vel dolores quia quo.\",\n      \"last_name\": \"Sit officiis maiores.\"\n   }'")
 		}
 	}
 	if err != nil {
@@ -41,11 +41,11 @@ func BuildCreatePayload(userCreateBody string) (*user.UserPayload, error) {
 // flags.
 func BuildUpdatePayload(userUpdateBody string, userUpdateID string) (*user.UpdatePayload, error) {
 	var err error
-	var body UserPayload
+	var body UpdateRequestBody
 	{
 		err = json.Unmarshal([]byte(userUpdateBody), &body)
 		if err != nil {
-			return nil, fmt.Errorf("invalid JSON for body, example of valid JSON:\n%s", "'{\n      \"first_name\": \"Error nisi dolores cum beatae ut eum.\",\n      \"last_name\": \"Ipsa similique architecto aut.\"\n   }'")
+			return nil, fmt.Errorf("invalid JSON for body, example of valid JSON:\n%s", "'{\n      \"first_name\": \"Modi quod.\",\n      \"last_name\": \"Vero omnis commodi inventore molestiae voluptas.\"\n   }'")
 		}
 	}
 	var id int

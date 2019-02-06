@@ -43,7 +43,7 @@ func EncodeCreateRequest(encoder func(*http.Request) goahttp.Encoder) func(*http
 		if !ok {
 			return goahttp.ErrInvalidType("user", "create", "*user.UserPayload", v)
 		}
-		body := NewUserPayload(p)
+		body := NewCreateRequestBody(p)
 		if err := encoder(req).Encode(&body); err != nil {
 			return goahttp.ErrEncodingError("user", "create", err)
 		}
@@ -126,7 +126,7 @@ func EncodeUpdateRequest(encoder func(*http.Request) goahttp.Encoder) func(*http
 		if !ok {
 			return goahttp.ErrInvalidType("user", "update", "*user.UpdatePayload", v)
 		}
-		body := NewUserPayload(p)
+		body := NewUpdateRequestBody(p)
 		if err := encoder(req).Encode(&body); err != nil {
 			return goahttp.ErrEncodingError("user", "update", err)
 		}

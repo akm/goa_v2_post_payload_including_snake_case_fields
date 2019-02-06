@@ -14,16 +14,16 @@ import (
 	goa "goa.design/goa"
 )
 
-// UserPayload is the type of the "user" service "create" endpoint HTTP request
-// body.
-type UserPayload struct {
+// CreateRequestBody is the type of the "user" service "create" endpoint HTTP
+// request body.
+type CreateRequestBody struct {
 	FirstName *string `form:"first_name,omitempty" json:"first_name,omitempty" xml:"first_name,omitempty"`
 	LastName  *string `form:"last_name,omitempty" json:"last_name,omitempty" xml:"last_name,omitempty"`
 }
 
-// UserPayload is the type of the "user" service "update" endpoint HTTP request
-// body.
-type UserPayload struct {
+// UpdateRequestBody is the type of the "user" service "update" endpoint HTTP
+// request body.
+type UpdateRequestBody struct {
 	FirstName *string `form:"first_name,omitempty" json:"first_name,omitempty" xml:"first_name,omitempty"`
 	LastName  *string `form:"last_name,omitempty" json:"last_name,omitempty" xml:"last_name,omitempty"`
 }
@@ -67,7 +67,7 @@ func NewUpdateResponseBody(res *userviews.UserView) *UpdateResponseBody {
 }
 
 // NewCreateUserPayload builds a user service create endpoint payload.
-func NewCreateUserPayload(body *UserPayload) *user.UserPayload {
+func NewCreateUserPayload(body *CreateRequestBody) *user.UserPayload {
 	v := &user.UserPayload{
 		FirstName: *body.FirstName,
 		LastName:  body.LastName,
@@ -76,7 +76,7 @@ func NewCreateUserPayload(body *UserPayload) *user.UserPayload {
 }
 
 // NewUpdatePayload builds a user service update endpoint payload.
-func NewUpdatePayload(body *UserPayload, id int) *user.UpdatePayload {
+func NewUpdatePayload(body *UpdateRequestBody, id int) *user.UpdatePayload {
 	v := &user.UserPayload{
 		FirstName: *body.FirstName,
 		LastName:  body.LastName,
@@ -88,16 +88,16 @@ func NewUpdatePayload(body *UserPayload, id int) *user.UpdatePayload {
 	return res
 }
 
-// ValidateUserPayload runs the validations defined on UserPayload
-func ValidateUserPayload(body *UserPayload) (err error) {
+// ValidateCreateRequestBody runs the validations defined on CreateRequestBody
+func ValidateCreateRequestBody(body *CreateRequestBody) (err error) {
 	if body.FirstName == nil {
 		err = goa.MergeErrors(err, goa.MissingFieldError("first_name", "body"))
 	}
 	return
 }
 
-// ValidateUserPayload runs the validations defined on UserPayload
-func ValidateUserPayload(body *UserPayload) (err error) {
+// ValidateUpdateRequestBody runs the validations defined on UpdateRequestBody
+func ValidateUpdateRequestBody(body *UpdateRequestBody) (err error) {
 	if body.FirstName == nil {
 		err = goa.MergeErrors(err, goa.MissingFieldError("first_name", "body"))
 	}

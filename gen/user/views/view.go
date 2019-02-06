@@ -27,6 +27,17 @@ type UserView struct {
 	LastName  *string
 }
 
+var (
+	// UserMap is a map of attribute names in result type User indexed by view name.
+	UserMap = map[string][]string{
+		"default": []string{
+			"id",
+			"first_name",
+			"last_name",
+		},
+	}
+)
+
 // ValidateUser runs the validations defined on the viewed result type User.
 func ValidateUser(result *User) (err error) {
 	switch result.View {
