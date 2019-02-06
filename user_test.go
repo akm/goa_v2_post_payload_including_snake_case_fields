@@ -14,7 +14,7 @@ import (
 	usersvr "github.com/akm/goa_v2_post_payload_including_snake_case_fields/gen/http/user/server"
 	user "github.com/akm/goa_v2_post_payload_including_snake_case_fields/gen/user"
 	goahttp "goa.design/goa/http"
-	"goa.design/goa/http/middleware"
+	"goa.design/goa/middleware"
 )
 
 func TestUserCreate(t *testing.T) {
